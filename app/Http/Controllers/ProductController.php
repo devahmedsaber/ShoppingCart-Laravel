@@ -112,4 +112,8 @@ class ProductController extends Controller
     public function checkout($amount){
         return view('cart.checkout', compact('amount'));
     }
+
+    public function charge(Request $request){
+        dd($request);
+    }
 }
