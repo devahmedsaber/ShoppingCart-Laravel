@@ -29,6 +29,9 @@ class HomeController extends Controller
 
     public function store()
     {
+        if(session()->has('success')){
+            toast(session()->get('success'), 'success');
+        }
         $latestProducts = Product::latest()->take(3)->get();
         return view('store', compact('latestProducts'));
     }
