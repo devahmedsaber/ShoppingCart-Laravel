@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cart;
+use App\Order;
 use App\Product;
 use Cartalyst\Stripe\Laravel\Facades\Stripe;
 use Illuminate\Http\Request;
@@ -126,7 +127,10 @@ class ProductController extends Controller
 
         if ($chargeId){
             // Save Table In Orders Table (In Next)
-
+            Order::create([
+                'user_id' => auth()->user()->id,
+                'cart' => serialize(session()->get('cart'))
+            ]);
             // Clean Cart Session
             session()->forget('cart');
             // If Charges Successfully
