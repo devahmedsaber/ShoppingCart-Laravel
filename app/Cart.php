@@ -26,6 +26,7 @@ class Cart
     public function add($product)
     {
         $item = [
+            'id' => $product->id,
             'title' => $product->title,
             'price' => $product->price,
             'qty' => 0,
@@ -42,5 +43,13 @@ class Cart
         }
 
         $this->items[$product->id]['qty'] += 1;
+    }
+
+    public function remove($id){
+        if (array_key_exists($id, $this->items)){
+            $this->totalQty -= $this->items[$id]['qty'];
+            $this->totalPrice -= $this->items[$id]['qty'] * $this->items[$id]['price'];
+            unset($this->items[$id]);
+        }
     }
 }

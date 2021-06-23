@@ -21,6 +21,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/store', 'HomeController@store')->name('store');
 
 Route::get('/products', 'ProductController@index')->name('products.index');
+Route::delete('/products/{product}', 'ProductController@destroy')->name('products.delete');
+
 Route::get('/addToCart/{product}', 'ProductController@addToCart')->name('cart.add');
 Route::get('/shopping-cart', 'ProductController@showCart')->name('cart.show');
 
