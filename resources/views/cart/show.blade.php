@@ -8,6 +8,14 @@
             </div>
         @endif
 
+        @if($errors->any())
+            <div class="">
+                @foreach($errors->all() as $error)
+                    <div class="alert alert-danger">{{ $error }}</div>
+                @endforeach
+            </div>
+        @endif
+
         <div class="row">
             @if($cart)
                 <div class="col-md-8">
@@ -19,8 +27,14 @@
                                 </h5>
                                 <div class="card-text">
                                     $ {{ $product['price'] }}
-                                    <input type="text" name="qty" id="qty" value="{{ $product['qty'] }}">
-                                    <a href="#" class="btn btn-secondary btn-sm">Change</a>
+
+                                    <form action="{{ route('products.update', $product['id']) }}" method="post">
+                                        @csrf
+                                        @method('put')
+                                        <input type="text" name="qty" id="qty" value="{{ $product['qty'] }}">
+                                        <button type="submit" class="btn btn-secondary btn-sm">Change</button>
+                                    </form>
+
                                     <form action="{{ route('products.delete', $product['id']) }}" method="post">
                                         @csrf
                                         @method('delete')
